@@ -1,6 +1,8 @@
 .mode column
 .headers ON
 --Testing
+
+
 create table customer (cust_id integer, cust_name varchar(200), address varchar(250), phone bigint, email varchar(50), total_boxes int, total_price numeric(12,2), primary key(cust_id asc));
 
 insert into customer(cust_name, address, phone, email, total_boxes, total_price) values ("Long Pham", "906 W Wabash Ave", 9783190044, "long@test.com", 10, 40.00);
@@ -11,12 +13,12 @@ insert into customer(cust_name, address, phone, email, total_boxes, total_price)
 
 create table c_order (order_id integer, cust_id int, scout_id int, type varchar(50), amount int, paid int, picked_up int, primary key(order_id asc), foreign key(cust_id) references customer(cust_id), foreign key(scout_id) references scout(scout_id), foreign key(type) references cookie(type));
 
-create table scout (scout_id integer, scout_name varchar(200), scout_address varchar(250), age int, primary key(scout_id asc));
+create table scout (scout_id integer, scout_name varchar(200), password varchar(200), scout_address varchar(250), age int, primary key(scout_id asc));
 
-insert into scout(scout_name, scout_address, age) values ("Emily", "123 Main St", 11);
-insert into scout(scout_name, scout_address, age) values ("Kate", "165 Grant Ave", 12);
-insert into scout(scout_name, scout_address, age) values ("Jenny", "321 Jennison St", 10);
-insert into scout(scout_name, scout_address, age) values ("Molly", "216 Pike St", 9);
+insert into scout(scout_name, scout_address, age) values ("Emily", "cookiesale", "123 Main St", 11);
+insert into scout(scout_name, scout_address, age) values ("Kate", "cookiesale", "165 Grant Ave", 12);
+insert into scout(scout_name, scout_address, age) values ("Jenny", "cookiesale", "321 Jennison St", 10);
+insert into scout(scout_name, scout_address, age) values ("Molly", "cookiesale", "216 Pike St", 9);
 
 create table cookie (type varchar(200), price float, primary key(type));
 
