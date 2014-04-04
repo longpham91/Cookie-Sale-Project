@@ -21,23 +21,31 @@ import android.widget.SimpleCursorAdapter;
 
 public class CookieBook extends ListActivity 
 {
+	
    public static final String ROW_ID = "row_id"; // Intent extra key
    private ListView contactListView; // the ListActivity's ListView
    private CursorAdapter contactAdapter; // adapter for ListView
    
    // called when the activity is first created
-   @Override
+   @SuppressWarnings("deprecation")
+@Override
    public void onCreate(Bundle savedInstanceState) 
    {
+	  
       super.onCreate(savedInstanceState); // call super's onCreate
+
+      
+   
+		      
+		      
       contactListView = getListView(); // get the built-in ListView
       contactListView.setOnItemClickListener(viewContactListener);      
 
       // map each contact's name to a TextView in the ListView layout
-      String[] from = new String[] { "name" };
+      String[] from = new String[] { "cusname" };
       int[] to = new int[] { R.id.cookieTextView };
       contactAdapter = new SimpleCursorAdapter(
-         CookieBook.this, R.layout.viewtransaction, null, from, to);
+         CookieBook.this, R.layout.inputcookie, null, from, to);
       setListAdapter(contactAdapter); // set contactView's adapter
    } // end method onCreate
 
@@ -50,7 +58,8 @@ public class CookieBook extends ListActivity
        new GetContactsTask().execute((Object[]) null);
     } // end method onResume
 
-   @Override
+   @SuppressWarnings("deprecation")
+@Override
    protected void onStop() 
    {
       Cursor cursor = contactAdapter.getCursor(); // get current Cursor
@@ -103,7 +112,7 @@ public class CookieBook extends ListActivity
    {
       // create a new Intent to launch the AddEditContact Activity
       Intent addNewContact = 
-         new Intent(CookieBook.this, GScoutActivity.class);
+         new Intent(CookieBook.this, GirlScoutCookies.class);
       startActivity(addNewContact); // start the AddEditContact Activity
       return super.onOptionsItemSelected(item); // call super's method
    } // end method onOptionsItemSelected
@@ -118,7 +127,7 @@ public class CookieBook extends ListActivity
       {
          // create an Intent to launch the ViewContact Activity
          Intent viewContact = 
-            new Intent(CookieBook.this, GScoutActivity.class);
+            new Intent(CookieBook.this, GirlScoutCookies.class);
          
          // pass the selected contact's row ID as an extra with the Intent
          viewContact.putExtra(ROW_ID, arg3);
