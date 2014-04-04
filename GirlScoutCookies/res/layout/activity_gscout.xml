@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".GScoutActivity" >
+    tools:context=".GirlScoutCookies" >
 
     <TextView
         android:id="@+id/textView1"
@@ -17,7 +17,7 @@
         android:text="@string/username" />
 
     <EditText
-        android:id="@+id/mintquant"
+        android:id="@+id/usernameET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" >
@@ -32,7 +32,7 @@
         android:text="@string/password" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/passwordET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" />
@@ -42,14 +42,14 @@
         android:layout_height="wrap_content" >
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/submitcredentialsbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.19"
             android:text="@string/confirm" />
 
         <Button
-            android:id="@+id/confirmcookie"
+            android:id="@+id/confirmbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.22"
