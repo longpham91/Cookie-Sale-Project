@@ -185,20 +185,19 @@
         android:layout_height="wrap_content" >
 
         <Button
-            android:id="@+id/button3"
-            android:layout_width="120dp"
-            android:layout_height="match_parent"
-            android:text="@string/viewtransaction" 
-            />
+            android:id="@+id/transactionbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Transaction" />
 
         <Button
-            android:id="@+id/confirmcookie"
+            android:id="@+id/confirmbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/confirm" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/cancelbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.38"
