@@ -20,12 +20,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity><activity
-            android:name="com.deitel.girlscoutcookies.GirlScoutCookies"
+            android:name="com.deitel.girlscoutcookies.AddEdit"
             android:label="@string/app_name" >
             
         </activity>
         
-        <activity android:name="CookieBook"> </activity>
+        <activity android:name="com.deitel.girlscoutcookies.Main"> </activity>
         
         
         
