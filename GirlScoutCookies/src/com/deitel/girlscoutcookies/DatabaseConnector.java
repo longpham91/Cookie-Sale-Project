@@ -51,6 +51,8 @@ public class DatabaseConnector
       newCookie.put("tag", tag);
       newCookie.put("mint", mint);
       newCookie.put("cusname", cusname);
+      
+      
 
       open(); // open the database
       database.insert("cookies", null, newCookie);

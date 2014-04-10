@@ -7,6 +7,7 @@ import com.deitel.girlscoutcookies.R;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,12 +20,13 @@ import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-public class CookieBook extends ListActivity 
+public class Main extends ListActivity 
 {
 	
    public static final String ROW_ID = "row_id"; // Intent extra key
    private ListView contactListView; // the ListActivity's ListView
    private CursorAdapter contactAdapter; // adapter for ListView
+   public static int addEdit;
    
    // called when the activity is first created
    @SuppressWarnings("deprecation")
@@ -32,20 +34,17 @@ public class CookieBook extends ListActivity
    public void onCreate(Bundle savedInstanceState) 
    {
 	  
-      super.onCreate(savedInstanceState); // call super's onCreate
-
-      
-   
-		      
-		      
+      super.onCreate(savedInstanceState); // call super's onCreate         
+		   	      
       contactListView = getListView(); // get the built-in ListView
       contactListView.setOnItemClickListener(viewContactListener);      
-
+      
       // map each contact's name to a TextView in the ListView layout
       String[] from = new String[] { "cusname" };
       int[] to = new int[] { R.id.cookieTextView };
+     
       contactAdapter = new SimpleCursorAdapter(
-         CookieBook.this, R.layout.inputcookie, null, from, to);
+         Main.this, R.layout.viewtransaction, null, from, to);
       setListAdapter(contactAdapter); // set contactView's adapter
    } // end method onCreate
 
@@ -75,7 +74,7 @@ public class CookieBook extends ListActivity
    private class GetContactsTask extends AsyncTask<Object, Object, Cursor> 
    {
       DatabaseConnector databaseConnector = 
-         new DatabaseConnector(CookieBook.this);
+         new DatabaseConnector(Main.this);
 
       // perform the database access
       @Override
@@ -111,8 +110,9 @@ public class CookieBook extends ListActivity
    public boolean onOptionsItemSelected(MenuItem item) 
    {
       // create a new Intent to launch the AddEditContact Activity
+	   addEdit = 1;
       Intent addNewContact = 
-         new Intent(CookieBook.this, GirlScoutCookies.class);
+         new Intent(Main.this, AddEdit.class);
       startActivity(addNewContact); // start the AddEditContact Activity
       return super.onOptionsItemSelected(item); // call super's method
    } // end method onOptionsItemSelected
@@ -125,9 +125,10 @@ public class CookieBook extends ListActivity
       public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
          long arg3) 
       {
+    	  addEdit = 2;
          // create an Intent to launch the ViewContact Activity
          Intent viewContact = 
-            new Intent(CookieBook.this, GirlScoutCookies.class);
+            new Intent(Main.this, AddEdit.class);
          
          // pass the selected contact's row ID as an extra with the Intent
          viewContact.putExtra(ROW_ID, arg3);
