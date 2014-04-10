@@ -13,20 +13,24 @@ import android.widget.EditText;
 
 public class Login extends Activity 
 {
+	 
  
    
    // EditTexts for contact information
    private EditText usernameET;
    private EditText passwordET;
+   public Intent Main;
    
-   
-  
    
    
    // called when the Activity is first started
    @Override
    public void onCreate(Bundle savedInstanceState) 
    {
+	   if (Main == null){
+		    Main =
+		           new Intent(Login.this, Main.class);
+		    }
 	   
       super.onCreate(savedInstanceState); 
       setContentView(R.layout.activity_gscout); 
@@ -47,12 +51,12 @@ public class Login extends Activity
             if ((usernameET.getText().toString().equals("z")) && (passwordET.getText().toString().equals("z")))
             {
             	
-            	Intent Main =
-                         new Intent(getBaseContext(),CookieBook.class);
+            	
                       
                       
-                      
-                      
+                
+            	
+            	
                       startActivity(Main); 
                       
                   

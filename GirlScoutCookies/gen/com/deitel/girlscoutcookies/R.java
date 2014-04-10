@@ -25,39 +25,35 @@ public final class R {
     }
     public static final class id {
         public static final int LinearLayout1=0x7f080000;
-        public static final int TextView01=0x7f08000a;
-        public static final int TextView02=0x7f080012;
-        public static final int TextView04=0x7f080010;
-        public static final int TextView06=0x7f08000e;
-        public static final int TextView08=0x7f08000c;
-        public static final int action_settings=0x7f08001b;
-        public static final int cancelbutton=0x7f080019;
-        public static final int checkBox1=0x7f080016;
-        public static final int checkBox2=0x7f080017;
+        public static final int TextView01=0x7f080009;
+        public static final int TextView02=0x7f080011;
+        public static final int TextView04=0x7f08000f;
+        public static final int TextView06=0x7f08000d;
+        public static final int TextView08=0x7f08000b;
+        public static final int action_settings=0x7f080018;
+        public static final int checkBox1=0x7f080015;
+        public static final int checkBox2=0x7f080016;
         public static final int confirmbutton=0x7f080006;
-        public static final int contactTextView=0x7f080007;
-        public static final int cookieTextView=0x7f08001a;
-        public static final int cusname=0x7f080009;
-        public static final int dosiquant=0x7f080011;
-        public static final int mintquant=0x7f080014;
+        public static final int cookieTextView=0x7f080017;
+        public static final int cusname=0x7f080008;
+        public static final int dosiquant=0x7f080010;
+        public static final int mintquant=0x7f080013;
         public static final int passwordET=0x7f080004;
-        public static final int samquant=0x7f08000b;
-        public static final int savaquant=0x7f08000d;
+        public static final int samquant=0x7f08000a;
+        public static final int savaquant=0x7f08000c;
         public static final int submitcredentialsbutton=0x7f080005;
-        public static final int tagquant=0x7f080013;
+        public static final int tagquant=0x7f080012;
         public static final int textView1=0x7f080001;
         public static final int textView2=0x7f080003;
-        public static final int textView3=0x7f080008;
-        public static final int totalp=0x7f080015;
-        public static final int transactionbutton=0x7f080018;
-        public static final int trequant=0x7f08000f;
+        public static final int textView3=0x7f080007;
+        public static final int totalp=0x7f080014;
+        public static final int trequant=0x7f08000e;
         public static final int usernameET=0x7f080002;
     }
     public static final class layout {
         public static final int activity_gscout=0x7f030000;
-        public static final int cookielookup=0x7f030001;
-        public static final int inputcookie=0x7f030002;
-        public static final int viewtransaction=0x7f030003;
+        public static final int inputcookie=0x7f030001;
+        public static final int viewtransaction=0x7f030002;
     }
     public static final class menu {
         public static final int gscout=0x7f070000;
