@@ -4,10 +4,14 @@ package com.deitel.girlscoutcookies;
 
 import com.deitel.girlscoutcookies.R;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -22,10 +26,11 @@ import android.widget.SimpleCursorAdapter;
 
 public class Main extends ListActivity 
 {
-	
+ 
    public static final String ROW_ID = "row_id"; // Intent extra key
    private ListView contactListView; // the ListActivity's ListView
-   private CursorAdapter contactAdapter; // adapter for ListView
+   private CursorAdapter contactAdapter; 
+   private CursorAdapter contactAdapter2; // adapter for ListView
    public static int addEdit;
    
    // called when the activity is first created
@@ -33,19 +38,27 @@ public class Main extends ListActivity
 @Override
    public void onCreate(Bundle savedInstanceState) 
    {
-	  
+   
       super.onCreate(savedInstanceState); // call super's onCreate         
-		   	      
+     
       contactListView = getListView(); // get the built-in ListView
       contactListView.setOnItemClickListener(viewContactListener);      
       
+
       // map each contact's name to a TextView in the ListView layout
-      String[] from = new String[] { "cusname" };
+      String[] from = new String[] {"cusname"};
+      String[] from2 = new String[] {"datetime"};
       int[] to = new int[] { R.id.cookieTextView };
+      //int[] to2 = new int[] { R.id.cookieTextView2 };
+      
      
       contactAdapter = new SimpleCursorAdapter(
          Main.this, R.layout.viewtransaction, null, from, to);
-      setListAdapter(contactAdapter); // set contactView's adapter
+      setListAdapter(contactAdapter);
+      
+    /*  contactAdapter2 = new SimpleCursorAdapter(
+    	         Main.this, R.layout.viewtransaction, null, from2, to2);
+    	      setListAdapter(contactAdapter2);// set contactView's adapter */
    } // end method onCreate
 
    @Override
@@ -106,14 +119,65 @@ public class Main extends ListActivity
    } // end method onCreateOptionsMenu
    
    // handle choice from options menu
+   
+   public boolean isConnected(Context context) {
+    
+     ConnectivityManager connectivityManager = (ConnectivityManager)
+         context.getSystemService(Context.CONNECTIVITY_SERVICE);
+     NetworkInfo networkInfo = null;
+     if (connectivityManager != null) {
+         networkInfo =
+             connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+     }
+     return networkInfo == null ? false : networkInfo.isConnected();
+ }
+   
+   
    @Override
    public boolean onOptionsItemSelected(MenuItem item) 
    {
-      // create a new Intent to launch the AddEditContact Activity
-	   addEdit = 1;
+    if (item.getItemId() == R.id.action_settings)
+    {
+      
+    addEdit = 1;
       Intent addNewContact = 
          new Intent(Main.this, AddEdit.class);
-      startActivity(addNewContact); // start the AddEditContact Activity
+      startActivity(addNewContact);
+    }
+    
+    if (item.getItemId() == R.id.action_sync)
+    {
+      if(isConnected(getBaseContext())== true){
+    addEdit = 1;
+      Intent Login = 
+         new Intent(Main.this, Login.class);
+      startActivity(Login);
+      }
+      else
+      {
+       AlertDialog.Builder builder=new AlertDialog.Builder(Main.this);
+          builder.setTitle("WIFI"); 
+          builder.setMessage("You are not currently connected to wifi, motherfucker.");
+          builder.setPositiveButton("ok m7...", null); 
+          builder.show(); // display the Dialog
+      }
+    }
+    
+    if (item.getItemId() == R.id.delete)
+    {
+
+        DatabaseConnector databaseConnector = 
+           new DatabaseConnector(Main.this);
+       
+        databaseConnector.delete();
+        
+        Intent Restart = 
+                new Intent(Main.this, Main.class);
+             startActivity(Restart);
+    
+     
+    }
+    
       return super.onOptionsItemSelected(item); // call super's method
    } // end method onOptionsItemSelected
 
@@ -125,7 +189,7 @@ public class Main extends ListActivity
       public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
          long arg3) 
       {
-    	  addEdit = 2;
+       addEdit = 2;
          // create an Intent to launch the ViewContact Activity
          Intent viewContact = 
             new Intent(Main.this, AddEdit.class);
@@ -133,7 +197,11 @@ public class Main extends ListActivity
          // pass the selected contact's row ID as an extra with the Intent
          viewContact.putExtra(ROW_ID, arg3);
          startActivity(viewContact); // start the ViewContact Activity
-      } // end method onItemClick
+      }
+      
+      
+      
+      // end method onItemClick
    }; // end viewContactListener
 } // end class AddressBook
 

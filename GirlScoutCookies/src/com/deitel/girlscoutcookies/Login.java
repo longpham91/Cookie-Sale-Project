@@ -53,7 +53,7 @@ public class Login extends Activity
             	
             	
                       
-                      
+                      /* SYNC TO SERVER HERE */
                 
             	
             	
