@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Girl Scout Cookies</string>
+    <string name="app_name">Cookie Tracker</string>
     <string name="action_settings">Add New Transaction</string>
     <string name="hello_world">Hello world!</string>
     <string name="confirm">Confirm</string>
@@ -10,19 +10,19 @@
     <string name="username">User Name</string>
     <string name="password">Password</string>
     <string name="unitprice">Unit Price</string>
-    <string name="totalprice">Total Price</string>
+    <string name="totalprice">Total Price:</string>
     <string name="cancel">Cancel</string>
     <string name="cookielookup">Cookie Lookup</string>
     <string name="viewtransaction">Transaction</string>
     <string name="customername">Customer Name</string>
     <string name="savannahsmiles">Savannah Smiles</string>
-    <string name="dosidos">Do Si Dos</string>
+    <string name="dosidos">Do-si-dos</string>
     <string name="trefoils">Trefoils</string>
     <string name="samoas">Samoas</string>
-    <string name="tagalongs">TagAlongs</string>
+    <string name="tagalongs">Tagalongs</string>
     <string name="thinmints">Thin Mints</string>
     <string name="pickedup">Picked Up</string>
-    <string name="paid">Paid</string>
+    <string name="paid">Paid For</string>
     <string name="errorButton">OK</string>
     <string name="errorTitle">Customer name is required</string>
     <string name="errorMessage">You must enter a customer name</string>

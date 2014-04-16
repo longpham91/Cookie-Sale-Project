@@ -18,7 +18,7 @@ public class DatabaseConnector
    private DatabaseOpenHelper databaseOpenHelper; // database helper
 
    // public constructor for DatabaseConnector
-   public DatabaseConnector(Context context) 
+   public DatabaseConnector(Context context)
    {
       // create a new DatabaseOpenHelper
       databaseOpenHelper = 
@@ -41,7 +41,7 @@ public class DatabaseConnector
 
    // inserts a new transaction in the database
    public void insertCookie(String sava, String tres, String dosi, 
-      String sama, String tag, String mint, String cusname) 
+      String sama, String tag, String mint, String cusname, int paid, int pickedup, String datetime) 
    {
       ContentValues newCookie= new ContentValues();
       newCookie.put("sava", sava);
@@ -51,7 +51,9 @@ public class DatabaseConnector
       newCookie.put("tag", tag);
       newCookie.put("mint", mint);
       newCookie.put("cusname", cusname);
-      
+      newCookie.put("paid", paid);
+      newCookie.put("pickedup", pickedup);
+      newCookie.put("datetime", datetime);
       
 
       open(); // open the database
@@ -61,7 +63,7 @@ public class DatabaseConnector
 
    // inserts a new contact in the database
    public void updateCookie(long id, String sava, String tres, String dosi, 
-		      String sama, String tag, String mint, String cusname) 
+		      String sama, String tag, String mint, String cusname, int paid, int pickedup, String datetime) 
    {
       ContentValues editCookie = new ContentValues();
       editCookie.put("sava", sava);
@@ -71,6 +73,9 @@ public class DatabaseConnector
       editCookie.put("tag", tag);
       editCookie.put("mint", mint);
       editCookie.put("cusname", cusname);
+      editCookie.put("paid", paid);
+      editCookie.put("pickedup", pickedup);
+      editCookie.put("datetime",datetime);
 
       open(); // open the database
       database.update("cookies", editCookie, "_id=" + id, null);
@@ -114,13 +119,19 @@ public class DatabaseConnector
       public void onCreate(SQLiteDatabase db) 
       {
          // query to create a new table named contacts
-         String createQuery = "CREATE TABLE cookies" +
+         String createQuery = "CREATE TABLE COOKIES" +
             "(_id integer primary key autoincrement," +
             "cusname TEXT, sava TEXT, tres TEXT, dosi TEXT, mint TEXT, " +
-            "sama TEXT, tag TEXT);";
+            "sama TEXT, tag TEXT, paid TEXT, pickedup TEXT, datetime TEXT);";
+         
                   
          db.execSQL(createQuery); // execute the query
+         System.out.print("table created");
       } // end method onCreate
+      
+      
+      
+      
 
       @Override
       public void onUpgrade(SQLiteDatabase db, int oldVersion, 
@@ -128,6 +139,24 @@ public class DatabaseConnector
       {
       } // end method onUpgrade
    } // end class DatabaseOpenHelper
+
+public void delete() {
+	deleteDB(database);
+	
+	
+}
+
+public void deleteDB(SQLiteDatabase db) 
+{
+   // query to create a new table named contacts
+   String deleteQuery = "DROP TABLE COOKIES";
+            
+   db.execSQL(deleteQuery); // execute the query
+}
+
+
+	
+
 } // end class DatabaseConnector
 
 

@@ -2,22 +2,13 @@
 <html>
 
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Orders | Girl Scout Cookie Sale</title>
-
-    <!-- Core CSS - Include with every page -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
-
-    <!-- Page-Level Plugin CSS - Tables -->
     <link href="css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
-
-    <!-- SB Admin CSS - Include with every page -->
     <link href="css/sb-admin.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -65,6 +56,9 @@
                     </li>
                     <li>
                         <a href="scout.html"><i class="fa fa-edit fa-fw"></i> New Scout</a>
+                    </li>
+                    <li>
+                        <a href="cookie.html"><i class="fa fa-edit fa-fw"></i> New Cookie</a>
                     </li>
                     <li class="active">
                         <a href="login.html"><i class="fa fa-user fa-fw"></i> Log In</a>
@@ -158,18 +152,20 @@
 
     </div>
     <!-- /#wrapper -->
-
-    <!-- Core Scripts - Include with every page -->
     <script src="js/jquery-1.10.2.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-
-    <!-- Page-Level Plugin Scripts - Tables -->
     <script src="js/plugins/dataTables/jquery.dataTables.js"></script>
     <script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
-
-    <!-- SB Admin Scripts - Include with every page -->
     <script src="js/sb-admin.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('#dataTables-example').dataTable();
+    });
+    </script>
+</body>
+</html>
+ript src="js/sb-admin.js"></script>
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
