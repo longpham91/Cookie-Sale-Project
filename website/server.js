@@ -11,22 +11,17 @@ var extensions = {
     ".jpg" : "image/jpeg"
 };
 
-var mysql = require('mysql');
-
+var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : '127.0.0.1',
   port     : '3306',
-  user     : 'adminCwrU1XP',
-  password : 'JncbX-B6D7tv',
-  database : 'nodejs'
+  user     : 'adminwURHPyk',
+  password : 'zszaGmnRIhQm',
+  database : 'nodejs',
+  _socket: '/var/run/mysqld/mysqld.sock'
 });
 
 //connection.connect();
-
-//connection.query('SELECT * FROM customer;');
-//console.log(rows);
-
-//connection.end();
 
 /**
  *  Define the sample application.
@@ -69,6 +64,7 @@ var SampleApp = function() {
         //  Local cache for static content.
         self.zcache['index.html'] = fs.readFileSync('./index.html');
     };
+
 
     /**
      *  Retrieve entry (content) from cache.
@@ -123,9 +119,10 @@ var SampleApp = function() {
             res.send("<html><body><img src='" + link + "'></body></html>");
         };
 
-        self.routes['/'] = function(req, res) {/Users/longpham/nodejs/routes/cookie.js
+        self.routes['/'] = function(req, res) {
             res.setHeader('Content-Type', 'text/html');
             res.send(self.cache_get('index.html') );
+            console.log("Request to /");
         };
     };
 
@@ -136,7 +133,9 @@ var SampleApp = function() {
      */
     self.initializeServer = function() {
         self.createRoutes();
-        self.app = express.createServer();
+        self.app = express.createServer(function(request, response) {
+            //Ready!
+        });
 
         //  Add handlers for the app (from the routes).
         for (var r in self.routes) {
@@ -172,9 +171,12 @@ var SampleApp = function() {
 
 };   /*  Sample Application.  */
 
+
+
 /**
  *  main():  Main code.
  */
 var zapp = new SampleApp();
 zapp.initialize();
 zapp.start();
+
