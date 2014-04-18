@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Girl Scout Cookie Sale</title>
+
+    <!-- Core CSS - Include with every page -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <!-- Page-Level Plugin CSS - Forms -->
+
+    <!-- SB Admin CSS - Include with every page -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <style>
+        .checkbox {
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Girl Scout Cookie Sale</a>
+            </div>
+            <!-- /.navbar-header -->
+        </nav>
+        <!-- /.navbar-static-top -->
+
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li class="sidebar-search">
+                        <div class="input-group custom-search-form">
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <!-- /input-group -->
+                    </li>
+                    <li>
+                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="scouts.html"><i class="fa fa-table fa-fw"></i> Scouts</a>
+                    </li>
+                    <li>
+                        <a href="orders.html"><i class="fa fa-table fa-fw"></i> Orders</a>
+                    </li>
+                    <li>
+                        <a href="#" class="active"><i class="fa fa-edit fa-fw"></i> New Order</a>
+                    </li>
+                    <li>
+                        <a href="scout.html"><i class="fa fa-edit fa-fw"></i> New Scout</a>
+                    </li>
+                    <li>
+                        <a href="cookie.html"><i class="fa fa-edit fa-fw"></i> New Cookie</a>
+                    </li>
+                    <li>
+                        <a href="login.html"><i class="fa fa-user fa-fw"></i> Log In</a>
+                    </li>
+                </ul>
+                <!-- /#side-menu -->
+            </div>
+            <!-- /.sidebar-collapse -->
+        </nav>
+        <!-- /.navbar-static-side -->
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Submission Form</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                </div>
+                                <div class="col-lg-6">
+                                    <form role="form">
+                                        <div class="form-group">
+                                            <label>Customer Name</label>
+                                            <input id="cust_name" class="form-control" placeholder="First and last name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Scout Name</label>
+                                            <input id="scout_name" class="form-control" placeholder="First and last name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Customer Address</label>
+                                            <input id="cust_addr" class="form-control" placeholder="# and street name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <input id="email" class="form-control" placeholder="cookie@example.com">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Phone Number</label>
+                                            <input id="phone" class="form-control" placeholder="111-222-3333">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Checkboxes</label>
+                                            <div class="container" style="width: 100%;">
+                                                <div class="row">
+                                                    <div class="col-xs-3">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input id="cookie_drop_check" type="checkbox" value="Cookie Drop">Cookie Drop
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                        <input id="cookie_drop" class="form-control" placeholder="0" style="max-width: 75px; float: right;">
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input id="savannah_check" type="checkbox" value="Savannah Smiles">Savannah Smiles
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                        <input id="savannah" class="form-control" placeholder="0" style="max-width: 75px; float: right;">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-3">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input id="trefoils_check" type="checkbox" value="Trefoils">Trefoils
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                        <input id="trefoils" class="form-control" placeholder="0" style="max-width: 75px; float: right;">
+                                                            </div>
+                                                    <div class="col-xs-3">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input id="dosidos_check" type="checkbox" value="DoSiDos">DoSiDos
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                        <input id="dosidos" class="form-control" placeholder="0" style="max-width: 75px; float: right;">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-3">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input id="samoas_check" type="checkbox" value="Samoas">Samoas
+                                                                    </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                        <input id="samoas" class="form-control" placeholder="0" style="max-width: 75px; float: right;">
+                                                            </div>
+                                                    <div class="col-xs-3">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input id="dulce_check" type="checkbox" value="Dulce">Dulce
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                        <input id="dulce" class="form-control" placeholder="0" style="max-width: 75px; float: right;">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-3">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input id="thank_u_check" type="checkbox" value="Thank U BerryMunch">Thank U BerryMunch
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-3" style="padding-top: 10px;">
+                                                        <input id="thank_u" class="form-control" placeholder="0" style="max-width: 75px; float: right;">
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input id="tagalongs_check" type="checkbox" value="Tagalongs">Tagalongs
+                                                                    </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                        <input id="tagalongs" class="form-control" placeholder="0" style="max-width: 75px; float: right;">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-3">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input id="thin_mints_check" type="checkbox" value="Thin Mints">Thin Mints
+                                                                    </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                        <input id="thin_mints" class="form-control" placeholder="0" style="max-width: 75px; float: right;">
+                                                            </div>
+                                                    <div class="col-xs-3">
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="display: none;">
+                                            <label>Total Boxes</label>
+                                            <p id="total-boxes" class="form-control-static">0</p>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label>Total Price</label>
+                                            <p id="total-price" class="form-control-static">0</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Paid/Picked-up</label>
+                                            <div class="container" style="width: 100%">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="checkbox">
+                                                        <label>
+                                                            <input id="paid_check" type="checkbox" value="">Paid
+                                                        </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="checkbox">
+                                                        <label>
+                                                            <input id="picked_up_check" type="checkbox" value="">Picked up
+                                                        </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Comments</label>
+                                            <textarea class="form-control" rows="3"></textarea>
+                                        </div>
+                                        <button id="user_submit" type="button" class="btn btn-default">Submit</button>
+                                        <button type="reset" class="btn btn-default">Reset</button>
+                                    </form>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                <div class="col-lg-3">
+                                </div>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Core Scripts - Include with every page -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/sb-admin.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        
+        var total;
+        var price;
+        
+        function onCookieChanged(control) {
+            total = Number($("#cookie_drop").val()) + Number($("#savannah").val()) + Number($("#trefoils").val()) + Number($("#dosidos").val()) + Number($("#samoas").val()) + Number($("#dulce").val()) + Number($("#thank_u").val()) + Number($("#tagalongs").val()) + Number($("#thin_mints").val());
+            price = total * 4.00;
+            $("#total_boxes").html(total);
+            $("#total-price").html("$" + price);
+            if (!$(control).is(":checked")) {
+                $(control).attr('checked','checked');
+            }
+        }
+    
+        $(document).ready(function () {
+            $('#cookie_drop').keyup(function () { onCookieChanged('#cookie_drop_check'); });
+            $('#savannah').keyup(function () { onCookieChanged('#savannah_check'); });
+            $('#trefoils').keyup(function () { onCookieChanged('#trefoils_check'); });
+            $('#dosidos').keyup(function () { onCookieChanged('#dosidos_check'); });
+            $('#samoas').keyup(function () { onCookieChanged('#samoas_check'); });
+            $('#dulce').keyup(function () { onCookieChanged('#dulce_check'); });
+            $('#thank_u').keyup(function () { onCookieChanged('#thank_u_check'); });
+            $('#tagalongs').keyup(function () { onCookieChanged('#tagalongs_check'); });
+            $('#thin_mints').keyup(function () { onCookieChanged('#thin_mints_check'); });
+                          
+            $("#user_submit").click(function () {
+                var strParams = {};
+                var socket = io.connect('http://nodejs-gscookiesales.rhcloud.com:8000/');
+                var paid = ($("#paid_check").is(":checked")) ? 1 : 0;
+                var picked_up = ($("#picked_up_check").is(":checked")) ? 1 : 0;
+                var strParams1 = "'" + $("#cust_name").val() + "','" + $("#cust_addr").val() + "','" + $("#phone").val() + "','" + $("#email").val() + "'," + total + "," + price + "," + paid + "," + picked_up;
+                strParams["value0"] = strParams1;
+                var strParams2 = [];
+                var controls = ["#cookie_drop","#savannah","#trefoils","#dosidos","#samoas","#dulce","#thank_u","#tagalongs","#thin_mints"];
+                for (var i = 0; i < controls.length; i++) {
+                    var control = $(controls[i]);
+                    var control_check = $(controls[i] + "_check");
+                    if ($(control_check).is(":checked")) {
+                        var array = [];
+                        array.push($("#cust_name").val());
+                        array.push($("#scout_name").val());
+                        array.push(control_check.val());
+                        array.push(control.val());
+                        strParams2.push(array);
+//                        var jsonObj = {
+//                            cust_name: $("#cust_name").val(),
+//                            scout_name: $("#scout_name").val(),
+//                            type: control_check.val(),
+//                            amount: control.val()
+//                        };
+//                        strParams2["obj" + i] = jsonObj;
+                        
+                    }
+                }
+                strParams["value1"] = strParams2;
+                                    
+                socket.on('order-start', function(data) {
+                    console.log(data.value);
+                    socket.emit('order', strParams);
+                });
+                
+                socket.on('order-result', function(data) {
+                    alert(data.value);
+                    location.reload(true);
+                          
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
