@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Cookie | Girl Scout Cookie Sale</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="css/sb-admin.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Girl Scout Cookie Sale</a>
+            </div>
+            <!-- /.navbar-header -->
+        </nav>
+        <!-- /.navbar-static-top -->
+
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li class="sidebar-search">
+                        <div class="input-group custom-search-form">
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <!-- /input-group -->
+                    </li>
+                    <li>
+                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="scouts.html"><i class="fa fa-table fa-fw"></i> Scouts</a>
+                    </li>
+                    <li>
+                        <a href="orders.html"><i class="fa fa-table fa-fw"></i> Orders</a>
+                    </li>
+                    <li>
+                        <a href="order.html" class="active"><i class="fa fa-edit fa-fw"></i> New Order</a>
+                    </li>
+                    <li>
+                        <a href="scout.html" class="active"><i class="fa fa-edit fa-fw"></i> New Scout</a>
+                    </li>
+                    <li>
+                        <a href="#" class="active"><i class="fa fa-edit fa-fw"></i> New Cookie</a>
+                    </li>
+                    <li>
+                        <a href="login.html"><i class="fa fa-user fa-fw"></i> Log In</a>
+                    </li>
+                </ul>
+                <!-- /#side-menu -->
+            </div>
+            <!-- /.sidebar-collapse -->
+        </nav>
+        <!-- /.navbar-static-side -->
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Submission Form</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                </div>
+                                <div class="col-lg-6">
+                                    <form role="form">
+                                        <div class="form-group">
+                                            <label>Cookie Type</label>
+                                            <input id="cookie_type" class="form-control" placeholder="Cookie Drop">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Price</label>
+                                            <input id="price" class="form-control" placeholder="4.00">
+                                        </div>
+                                        <button id="user_submit" type="button" class="btn btn-default">Submit</button>
+                                        <button type="reset" class="btn btn-default">Reset</button>
+                                    </form>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                <div class="col-lg-3">
+                                </div>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/sb-admin.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+        
+        $(document).ready(function () {
+            $("#user_submit").click(function () {
+                var socket = io.connect('http://nodejs-gscookiesales.rhcloud.com:8000/');
+                var strParams = "'" + $("#cookie_type").val() + "'," + $("#price").val();
+                socket.on('cookie-start', function(data) {
+                    console.log(data.value);
+                    socket.emit('cookie', {value: strParams});
+                });
+                
+                socket.on('cookie-result', function(data) {
+//                    $("#cookie_type").val("");
+//                    $("#price").val("");
+                    alert(data.value);
+                    location.reload(true);
+                });
+                
+            });
+        });
+    </script>
+</body>
+
+</html>
