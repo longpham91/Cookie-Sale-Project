@@ -230,7 +230,7 @@ var SampleApp = function() {
                 });
             });
             
-            socket.emit('scoutdelete', function(data) {
+            socket.on('scoutdelete', function(data) {
                 connection.query("DELETE FROM scout WHERE scout_id = " + data.value, function(err,rows) {
                     if (err){
                         throw err;
