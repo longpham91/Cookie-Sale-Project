@@ -65,7 +65,7 @@
                         <a href="orders.html"><i class="fa fa-table fa-fw"></i> Orders</a>
                     </li>
                     <li>
-                        <a href="#" class="active"><i class="fa fa-edit fa-fw"></i> New Order</a>
+                        <a href="order.html" class="active"><i class="fa fa-edit fa-fw"></i> New Order</a>
                     </li>
                     <li>
                         <a href="scout.html"><i class="fa fa-edit fa-fw"></i> New Scout</a>
@@ -114,11 +114,11 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Email</label>
-                                            <input id="email" class="form-control" placeholder="cookie@example.com">
+                                            <input id="email" class="form-control" type="email" placeholder="cookie@example.com">
                                         </div>
                                         <div class="form-group">
                                             <label>Phone Number</label>
-                                            <input id="phone" class="form-control" placeholder="111-222-3333">
+                                            <input id="phone" class="form-control" placeholder="1112223333">
                                         </div>
                                         <div class="form-group">
                                             <label>Checkboxes</label>
@@ -231,12 +231,12 @@
                                         </div>
                                         <div class="form-group" style="display: none;">
                                             <label>Total Boxes</label>
-                                            <p id="total-boxes" class="form-control-static">0</p>
+                                            <p id="total_boxes" class="form-control-static">0</p>
                                         </div>
                                         
                                         <div class="form-group">
                                             <label>Total Price</label>
-                                            <p id="total-price" class="form-control-static">0</p>
+                                            <p id="total_price" class="form-control-static">0</p>
                                         </div>
                                         <div class="form-group">
                                             <label>Paid/Picked-up</label>
@@ -259,12 +259,9 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Comments</label>
-                                            <textarea class="form-control" rows="3"></textarea>
-                                        </div>
                                         <button id="user_submit" type="button" class="btn btn-default">Submit</button>
                                         <button type="reset" class="btn btn-default">Reset</button>
+                                        <button id="user_delete" type="button" class="btn btn-danger" style="display: none;">Delete</button>
                                     </form>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
@@ -301,13 +298,101 @@
             total = Number($("#cookie_drop").val()) + Number($("#savannah").val()) + Number($("#trefoils").val()) + Number($("#dosidos").val()) + Number($("#samoas").val()) + Number($("#dulce").val()) + Number($("#thank_u").val()) + Number($("#tagalongs").val()) + Number($("#thin_mints").val());
             price = total * 4.00;
             $("#total_boxes").html(total);
-            $("#total-price").html("$" + price);
+            $("#total_price").html("$" + price);
             if (!$(control).is(":checked")) {
                 $(control).attr('checked','checked');
             }
         }
     
+        var QueryString = function () {
+            // This function is anonymous, is executed immediately and
+            // the return value is assigned to QueryString!
+            var query_string = {};
+            var query = window.location.search.substring(1);
+            var vars = query.split("&");
+            for (var i=0;i<vars.length;i++) {
+                var pair = vars[i].split("=");
+                // If first entry with this name
+                if (typeof query_string[pair[0]] === "undefined") {
+                    query_string[pair[0]] = pair[1];
+                    // If second entry with this name
+                } else if (typeof query_string[pair[0]] === "string") {
+                    var arr = [ query_string[pair[0]], pair[1] ];
+                    query_string[pair[0]] = arr;
+                    // If third or later entry with this name
+                } else {
+                    query_string[pair[0]].push(pair[1]);
+                }
+            } 
+            return query_string;
+        } ();
+    
+        var socket = io.connect('http://nodejs-gscookiesales.rhcloud.com:8000/');
         $(document).ready(function () {
+            var order_id = QueryString.id;
+            $( window ).load(function() {
+                if (order_id != undefined) {
+                    order_id = window.atob(QueryString.id);
+                    document.getElementById("user_delete").style.display = "";
+                    socket.on('orderload-start', function(data) {
+                        console.log(data.value);
+                        socket.emit('orderload', {value: order_id});
+                    });
+                           
+                    socket.on('orderload-result', function(data) {
+                        var value = data.value[0];
+                        $("#scout_name").val(value.scout_name);
+                        $("#cust_name").val(value.cust_name);
+                        $("#cust_addr").val(value.address);
+                        $("#email").val(value.email);
+                        $("#phone").val(value.phone);
+                        total = value.total_boxes;
+                        price = "$" + value.total_price;
+                        $("#total_boxes").html(total);
+                        $("#total_price").html(price);
+                        if (value.paid == 1) {
+                            $("#paid_check").attr('checked','checked');
+                        }
+                        if (value.picked_up == 1) {
+                            $("#picked_up_check").attr('checked','checked');
+                        }
+                        for (var i = 0; i < data.value.length; i++) {
+                            var type = data.value[i].type;
+                            var amount = data.value[i].amount;
+                            if (type == "Cookie Drop") {
+                                $("#cookie_drop_check").attr('checked','checked');
+                                $("#cookie_drop").val(amount);
+                            } else if (type == "Savannah Smiles") {
+                                $("#savannah_check").attr('checked','checked');
+                                $("#savannah").val(amount);
+                            } else if (type == "Trefoils") {
+                                $("#trefoils_check").attr('checked','checked');
+                                $("#trefoils").val(amount);
+                            } else if (type == "Dulce") {
+                                $("#dulce_check").attr('checked','checked');
+                                $("#dulce").val(amount);
+                            } else if (type == "Samoas") {
+                                $("#samoas_check").attr('checked','checked');
+                                $("#samoas").val(amount);
+                            } else if (type == "Dosidos") {
+                                $("#dosidos_check").attr('checked','checked');
+                                $("#dosidos").val(amount);
+                            } else if (type == "Thank U BerryMunch") {
+                                $("#thank_u_check").attr('checked','checked');
+                                $("#thank_u").val(amount);
+                            } else if (type == "Tagalongs") {
+                                $("#tagalongs_check").attr('checked','checked');
+                                $("#tagalongs").val(amount);
+                            } else if (type == "Thin Mints") {
+                                $("#thin_mints_check").attr('checked','checked');
+                                $("#thin_mints").val(amount);
+                            }
+                        }
+                        
+                    });
+                }
+            });
+                          
             $('#cookie_drop').keyup(function () { onCookieChanged('#cookie_drop_check'); });
             $('#savannah').keyup(function () { onCookieChanged('#savannah_check'); });
             $('#trefoils').keyup(function () { onCookieChanged('#trefoils_check'); });
@@ -320,11 +405,19 @@
                           
             $("#user_submit").click(function () {
                 var strParams = {};
-                var socket = io.connect('http://nodejs-gscookiesales.rhcloud.com:8000/');
+                if (order_id==undefined) {
+                    strParams["value0"] = "add";
+                } else {
+                    strParams["value0"] = "edit";
+                }
+                                    
                 var paid = ($("#paid_check").is(":checked")) ? 1 : 0;
                 var picked_up = ($("#picked_up_check").is(":checked")) ? 1 : 0;
-                var strParams1 = "'" + $("#cust_name").val() + "','" + $("#cust_addr").val() + "','" + $("#phone").val() + "','" + $("#email").val() + "'," + total + "," + price + "," + paid + "," + picked_up;
-                strParams["value0"] = strParams1;
+                var cust_phone = ($("#phone").val()!="") ? $("#phone").val() : null;
+                var cust_email = ($("#email").val()!="") ? "'" + $("#email").val() + "'" : null;
+                price = total * 4.00;
+                var strParams1 = [$("#cust_name").val(), $("#cust_addr").val(), cust_phone, cust_email, total, price, paid, picked_up];
+                strParams["value1"] = strParams1;
                 var strParams2 = [];
                 var controls = ["#cookie_drop","#savannah","#trefoils","#dosidos","#samoas","#dulce","#thank_u","#tagalongs","#thin_mints"];
                 for (var i = 0; i < controls.length; i++) {
@@ -332,32 +425,29 @@
                     var control_check = $(controls[i] + "_check");
                     if ($(control_check).is(":checked")) {
                         var array = [];
-                        array.push($("#cust_name").val());
-                        array.push($("#scout_name").val());
                         array.push(control_check.val());
                         array.push(control.val());
                         strParams2.push(array);
-//                        var jsonObj = {
-//                            cust_name: $("#cust_name").val(),
-//                            scout_name: $("#scout_name").val(),
-//                            type: control_check.val(),
-//                            amount: control.val()
-//                        };
-//                        strParams2["obj" + i] = jsonObj;
-                        
                     }
                 }
-                strParams["value1"] = strParams2;
-                                    
-                socket.on('order-start', function(data) {
-                    console.log(data.value);
-                    socket.emit('order', strParams);
-                });
+                strParams["value2"] = $("#cust_name").val();
+                strParams["value3"] = $("#scout_name").val();
+                strParams["value4"] = total;
+                strParams["value5"] = strParams2;
+                
+                socket.emit('order', strParams);
                 
                 socket.on('order-result', function(data) {
-                    alert(data.value);
+                    alert(JSON.stringify(data.value));
                     location.reload(true);
+                });
+            });
                           
+            $("#user_delete").click(function () {
+                socket.emit('orderdelete', {value: order_id});
+                socket.on('orderdelete-result', function(data) {
+                  alert(JSON.stringify(data.value));
+                  window.location.href = "/orders.html";
                 });
             });
         });

@@ -18,7 +18,7 @@
 </head>
 
 <body>
-
+    
     <div id="wrapper">
 
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -38,17 +38,6 @@
         <nav class="navbar-default navbar-static-side" role="navigation">
             <div class="sidebar-collapse">
                 <ul class="nav" id="side-menu">
-                    <li class="sidebar-search">
-                        <div class="input-group custom-search-form">
-                            <input type="text" class="form-control" placeholder="Search...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                        </div>
-                        <!-- /input-group -->
-                    </li>
                     <li>
                         <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
@@ -120,6 +109,7 @@
                                         </div>
                                         <button id="user-submit" type="button" class="btn btn-default">Submit</button>
                                         <button type="reset" class="btn btn-default">Reset</button>
+                                        <button id="user_delete" type="button" class="btn btn-danger" style="display: none;">Delete</button>
                                         <br />
                                         <p id="output"></p>
                                     </form>
@@ -147,33 +137,81 @@
     <script src="js/jquery-1.10.2.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-
-    <!-- Page-Level Plugin Scripts - Forms -->
-
-    <!-- SB Admin Scripts - Include with every page -->
     <script src="js/sb-admin.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript">
+        
+        var QueryString = function () {
+            // This function is anonymous, is executed immediately and
+            // the return value is assigned to QueryString!
+            var query_string = {};
+            var query = window.location.search.substring(1);
+            var vars = query.split("&");
+            for (var i=0;i<vars.length;i++) {
+                var pair = vars[i].split("=");
+                // If first entry with this name
+                if (typeof query_string[pair[0]] === "undefined") {
+                    query_string[pair[0]] = pair[1];
+                    // If second entry with this name
+                } else if (typeof query_string[pair[0]] === "string") {
+                    var arr = [ query_string[pair[0]], pair[1] ];
+                    query_string[pair[0]] = arr;
+                    // If third or later entry with this name
+                } else {
+                    query_string[pair[0]].push(pair[1]);
+                }
+            } 
+            return query_string;
+        } ();
+    
         $(document).ready(function () {
-            $('#user-submit').click(function () {
-                var socket = io.connect('http://nodejs-gscookiesales.rhcloud.com:8000/');
-                var strParams = "'" + $("#scout_name").val() + "','" + $("#scout_pass").val() + "','" + $("#scout_addr").val() + "','" + $("#email").val() + "','" + $("#phone").val() + "'," + $("#age").val();
-                socket.on('scout-start', function(data) {
-                    console.log(data.value);
-                    socket.emit('scout', {value: strParams});
-                });
+            var scout_id = QueryString.id;
+            var socket = io.connect('http://nodejs-gscookiesales.rhcloud.com:8000/');
+            $(window).load(function() {
                 
+                if (scout_id != undefined) {
+                    scout_id = window.atob(scout_id);
+                    document.getElementById("user_delete").style.display = "";
+                    socket.on('scoutload-start', function(data) {
+                        console.log(data.value);
+                        socket.emit('scoutload', {value: scout_id});
+                    });
+                           
+                    socket.on('scoutload-result', function(data) {
+                        var value = data.value;
+                        $("#scout_name").val(value.scout_name);
+                        $("#scout_pass").val(value.password);
+                        $("#scout_addr").val(value.scout_address);
+                        $("#email").val(value.email);
+                        $("#phone").val(value.phone);
+                        $("#age").val(value.age);
+                    });
+                }
+            });
+                          
+            $('#user-submit').click(function () {
+                var scout_email = ($("#email").val()!="") ? "'" + $("#email").val() + "'" : null;
+                var scout_phone = ($("#phone").val()!="") ? $("#phone").val() : null;
+                
+                if (scout_id==undefined) {
+                    var strParams = "'" + $("#scout_name").val() + "','" + $("#scout_pass").val() + "','" + $("#scout_addr").val() + "','" + $("#email").val() + "','" + $("#phone").val() + "'," + $("#age").val();
+                    socket.emit('scout', {value1: "add", value2: strParams});
+                } else {
+                    var strParams2 = { scout_id: scout_id, scout_name: $("#scout_name").val(), password: $("#scout_pass").val(), scout_address: $("#scout_addr").val(), email: scout_email, phone: scout_phone, age: $("#age").val() };
+                    socket.emit('scout', {value1: "edit", value2: strParams2});
+                }
                 socket.on('scout-result', function(data) {
-//                    $("#scout_name").val("");
-//                    $("#scout_pass").val("");
-//                    $("#scout_addr").val("");
-//                    $("#email").val("");
-//                    $("#phone").val("");
-//                    $("#age").val("");
                     alert(data.value);
                     location.reload(true);
                 });
-                
+            });
+                          
+            $("#user_delete").click(function () {
+                socket.emit('scoutdelete', {value: scout_id});
+                socket.on('scoutdelete-result', function(data) {
+                  alert(JSON.stringify(data.value));
+                  window.location.href = "/scouts.html";
+                });
             });
         });
     </script>
