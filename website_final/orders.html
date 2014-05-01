@@ -128,7 +128,29 @@
     <script>
         var socket = io.connect('http://nodejs-gscookiesales.rhcloud.com:8000');
         socket.on('table2', function (data) {
-            var link = ConvertJsonToTable(data, 'dataTables-example', 'table table-hover dataTable no-footer', '');
+            var tableJson = [];
+            var index_old = "1";
+            var index_new = "0";
+            var typeList = "";
+            for (var i = 0; i < data.length; i++) {
+                var dataItem = data[i];
+                var dataLastItem = data[i-1];
+                index_new = dataItem.order_id.toString();
+                if (index_old == index_new) {
+                    if (i.toString() != (data.length - 1).toString()) {
+                        typeList = typeList + dataItem.type + ", ";
+                    } else {
+                        typeList = typeList + dataItem.type + ", ";
+                        tableJson.push({ "#": index_old, "Scout": dataLastItem.scout_name, "Customer": dataLastItem.cust_name, "Cookie Type": typeList, "Amount": dataLastItem.amount, "Paid": dataLastItem.paid, "Picked Up": dataLastItem.picked_up });
+                    }
+                } else {
+                    tableJson.push({ "#": index_old, "Scout": dataLastItem.scout_name, "Customer": dataLastItem.cust_name, "Cookie Type": typeList, "Amount": dataLastItem.amount, "Paid": dataLastItem.paid, "Picked Up": dataLastItem.picked_up });
+                    index_old = index_new;
+                    typeList = dataItem.type + ", ";
+                }
+            }
+            
+            var link = ConvertJsonToTable(tableJson, 'dataTables-example', 'table table-hover dataTable no-footer', '');
             $("#dataTables-example_wrapper").append(link);
             
             $(document).ready(function() {
@@ -171,6 +193,33 @@
                     window.open("data:text/csv;charset=utf-8," + escape(csv));
                 });
             });
+        });
+                              
+        function addRowHandlers() {
+            var table = document.getElementById("dataTables-example");
+            var rows = table.getElementsByTagName("tr");
+            for (i = 1; i < rows.length; i++) {
+                var currentRow = table.rows[i];
+
+                var createClickHandler =
+                  function(row) {
+                      return function() {
+                          var cell = row.getElementsByTagName("td")[0];
+                          var id = window.btoa(cell.innerHTML);
+                          window.location.href = "/order.html?id=" + id;
+                      };
+                  };
+                  
+                currentRow.onclick = createClickHandler(currentRow);
+            }
+        }
+                              
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('#dataTables-example').dataTable();
+                addRowHandlers();
+                socket.disconnect();
+            }, 800);
         });
     </script>
     

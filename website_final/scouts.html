@@ -131,9 +131,6 @@
             $("#dataTables-example_wrapper").append(link);
             
             $(document).ready(function() {
-                setTimeout(function() {
-                    $('#dataTables-example').dataTable();
-                }, 800);
                               
                 function JSON2CSV(objArray) {
                     var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
@@ -170,6 +167,33 @@
                     window.open("data:text/csv;charset=utf-8," + escape(csv));
                 });
             });
+        });
+                              
+        function addRowHandlers() {
+            var table = document.getElementById("dataTables-example");
+            var rows = table.getElementsByTagName("tr");
+            for (i = 1; i < rows.length; i++) {
+                var currentRow = table.rows[i];
+
+                var createClickHandler =
+                  function(row) {
+                      return function() {
+                          var cell = row.getElementsByTagName("td")[0];
+                          var id = window.btoa(cell.innerHTML);
+                          window.location.href = "/scout.html?id=" + id;
+                      };
+                  };
+                  
+                currentRow.onclick = createClickHandler(currentRow);
+            }
+        }
+                              
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('#dataTables-example').dataTable();
+                addRowHandlers();
+                socket.disconnect();
+            }, 800);
         });
     </script>
     
