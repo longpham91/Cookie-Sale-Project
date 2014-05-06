@@ -2,10 +2,18 @@
 // Main activity for the Address Book app.
 package com.deitel.girlscoutcookies;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
+
 import com.deitel.girlscoutcookies.R;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,6 +21,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,13 +40,18 @@ public class Main extends ListActivity
    private ListView contactListView; // the ListActivity's ListView
    private CursorAdapter contactAdapter; 
    public static int addEdit;
-   
+   private ProgressDialog pDialog,kDialog;
+   private static final String url_checkpassword="http://phpnew-gscookiesales.rhcloud.com/checkpassword.php";
+   private static final String url_update_product = "http://phpnew-gscookiesales.rhcloud.com/update_product.php";	
+   private static String url_create_product = "http://phpnew-gscookiesales.rhcloud.com/create_product.php";
+   private JSONParser jsonParser = new JSONParser();
    // called when the activity is first created
    @SuppressWarnings("deprecation")
 @Override
    public void onCreate(Bundle savedInstanceState) 
    {
-   
+	    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+	    StrictMode.setThreadPolicy(policy);
       super.onCreate(savedInstanceState); // call super's onCreate         
      
       contactListView = getListView(); // get the built-in ListView
@@ -64,7 +79,6 @@ public class Main extends ListActivity
    protected void onResume() 
    {
       super.onResume(); // call super's onResume method
-      
        // create new GetContactsTask and execute it 
        new GetContactsTask().execute((Object[]) null);
     } // end method onResume
@@ -85,15 +99,13 @@ public class Main extends ListActivity
    // performs database query outside GUI thread
    private class GetContactsTask extends AsyncTask<Object, Object, Cursor> 
    {
-      DatabaseConnector databaseConnector = 
-         new DatabaseConnector(Main.this);
+      DatabaseConnector databaseConnector = new DatabaseConnector(Main.this);
 
       // perform the database access
       @Override
       protected Cursor doInBackground(Object... params)
       {
-         databaseConnector.open();
-         
+         databaseConnector.open();    
          // get a cursor containing call contacts
          return databaseConnector.getAllContacts(); 
       } // end method doInBackground
@@ -117,8 +129,8 @@ public class Main extends ListActivity
       return true;
    } // end method onCreateOptionsMenu
    
-   // handle choice from options menu
-   
+
+ 
    public boolean isConnected(Context context) {
     
      ConnectivityManager connectivityManager = (ConnectivityManager)
@@ -142,24 +154,23 @@ public class Main extends ListActivity
       Intent addNewContact = 
          new Intent(Main.this, AddEdit.class);
       startActivity(addNewContact);
-    }
-    
+    }    
     if (item.getItemId() == R.id.action_sync)
-    {
-      if(isConnected(getBaseContext())== true){
-    //addEdit = 1;
+    {    	
+//      if(isConnected(getBaseContext())== true){
+//    	addEdit = 1;
       Intent Login = 
          new Intent(Main.this, Login.class);
       startActivity(Login);
-      }
-      else
-      {
-       AlertDialog.Builder builder=new AlertDialog.Builder(Main.this);
-          builder.setTitle("WIFI"); 
-          builder.setMessage("You are not currently connected to wifi, connect and try again.");
-          builder.setPositiveButton("Ok, thanks based developer!", null); 
-          builder.show(); // display the Dialog
-      }
+//      }
+//      else
+//      {
+//       AlertDialog.Builder builder=new AlertDialog.Builder(Main.this);
+//          builder.setTitle("WIFI"); 
+//          builder.setMessage("You are not currently connected to wifi, connect and try again.");
+//          builder.setPositiveButton("Ok, thanks based developer!", null); 
+//          builder.show(); // display the Dialog
+//      }
     }
     
     if (item.getItemId() == R.id.delete)
