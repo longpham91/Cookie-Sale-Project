@@ -127,7 +127,9 @@
     <script type="text/javascript">
         
         $(document).ready(function () {
+                          
             $("#user_submit").click(function () {
+                                    
                 var socket = io.connect('http://nodejs-gscookiesales.rhcloud.com:8000/');
                 var strParams = "'" + $("#cookie_type").val() + "'," + $("#price").val();
                 socket.on('cookie-start', function(data) {
@@ -136,8 +138,8 @@
                 });
                 
                 socket.on('cookie-result', function(data) {
-//                    $("#cookie_type").val("");
-//                    $("#price").val("");
+                    $("#cookie_type").val("");
+                    $("#price").val("");
                     alert(data.value);
                     location.reload(true);
                 });

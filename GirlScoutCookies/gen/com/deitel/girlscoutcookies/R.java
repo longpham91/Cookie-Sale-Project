@@ -185,41 +185,43 @@ public final class R {
     }
     public static final class id {
         public static final int LinearLayout1=0x7f090001;
-        public static final int TextView01=0x7f09000a;
-        public static final int TextView02=0x7f090012;
-        public static final int TextView04=0x7f090010;
-        public static final int TextView06=0x7f09000e;
-        public static final int TextView08=0x7f09000c;
-        public static final int action_settings=0x7f09001b;
-        public static final int action_sync=0x7f09001c;
-        public static final int checkBox1=0x7f090016;
-        public static final int checkBox2=0x7f090017;
+        public static final int TextView01=0x7f09000b;
+        public static final int TextView02=0x7f090013;
+        public static final int TextView04=0x7f090011;
+        public static final int TextView06=0x7f09000f;
+        public static final int TextView08=0x7f09000d;
+        public static final int action_settings=0x7f09001c;
+        public static final int action_sync=0x7f09001d;
+        public static final int checkBox1=0x7f090017;
+        public static final int checkBox2=0x7f090018;
         public static final int confirmbutton=0x7f090007;
-        public static final int cookieTextView=0x7f09001a;
-        public static final int cusname=0x7f090009;
-        public static final int datetime=0x7f090018;
-        public static final int delete=0x7f09001d;
-        public static final int deletebutton=0x7f090019;
-        public static final int dosiquant=0x7f090011;
+        public static final int contactTextView=0x7f090008;
+        public static final int cookieTextView=0x7f09001b;
+        public static final int cusname=0x7f09000a;
+        public static final int datetime=0x7f090019;
+        public static final int delete=0x7f09001e;
+        public static final int deletebutton=0x7f09001a;
+        public static final int dosiquant=0x7f090012;
         public static final int imageView1=0x7f090000;
-        public static final int mintquant=0x7f090014;
+        public static final int mintquant=0x7f090015;
         public static final int passwordET=0x7f090005;
-        public static final int samquant=0x7f09000b;
-        public static final int savaquant=0x7f09000d;
+        public static final int samquant=0x7f09000c;
+        public static final int savaquant=0x7f09000e;
         public static final int submitcredentialsbutton=0x7f090006;
-        public static final int tagquant=0x7f090013;
+        public static final int tagquant=0x7f090014;
         public static final int textView1=0x7f090002;
         public static final int textView2=0x7f090004;
-        public static final int textView3=0x7f090008;
-        public static final int totalp=0x7f090015;
-        public static final int trequant=0x7f09000f;
+        public static final int textView3=0x7f090009;
+        public static final int totalp=0x7f090016;
+        public static final int trequant=0x7f090010;
         public static final int usernameET=0x7f090003;
     }
     public static final class layout {
         public static final int activity_gscout=0x7f030000;
         public static final int apptheme_tab_indicator_holo=0x7f030001;
-        public static final int inputcookie=0x7f030002;
-        public static final int viewtransaction=0x7f030003;
+        public static final int cookielookup=0x7f030002;
+        public static final int inputcookie=0x7f030003;
+        public static final int viewtransaction=0x7f030004;
     }
     public static final class menu {
         public static final int gscout=0x7f080000;
@@ -252,33 +254,47 @@ public final class R {
         public static final int viewtransaction=0x7f06000c;
     }
     public static final class style {
-        public static final int ActionBar_Solid_Cookiestyle=0x7f070001;
-        public static final int ActionBar_Transparent_Cookiestyle=0x7f070002;
-        public static final int ActionBarTabStyle_Cookiestyle=0x7f070005;
-        public static final int ActionButton_CloseMode_Cookiestyle=0x7f070008;
-        public static final int AppTheme=0x7f070016;
-        public static final int AutoCompleteTextViewAppTheme=0x7f07000a;
-        public static final int ButtonAppTheme=0x7f07000b;
-        public static final int DropDownListView_Cookiestyle=0x7f070004;
-        public static final int DropDownNav_Cookiestyle=0x7f070006;
-        public static final int ImageButtonAppTheme=0x7f07000c;
-        public static final int PopupMenu_Cookiestyle=0x7f070003;
-        public static final int ProgressBar_Cookiestyle=0x7f070007;
-        public static final int ProgressBarAppTheme=0x7f070010;
-        public static final int RatingBarAppTheme=0x7f070012;
-        public static final int RatingBarBigAppTheme=0x7f070013;
-        public static final int RatingBarSmallAppTheme=0x7f070014;
-        public static final int SeekBarAppTheme=0x7f070011;
-        public static final int SpinnerAppTheme=0x7f07000d;
-        public static final int TabAppTheme=0x7f07000e;
-        public static final int TabTextAppTheme=0x7f07000f;
-        public static final int Theme_Cookiestyle=0x7f070000;
+        public static final int ActionBar_Solid_Cookiestyle=0x7f070003;
+        public static final int ActionBar_Transparent_Cookiestyle=0x7f070004;
+        public static final int ActionBarTabStyle_Cookiestyle=0x7f070007;
+        public static final int ActionButton_CloseMode_Cookiestyle=0x7f07000a;
+        /** 
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    
+
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        
+         */
+        public static final int AppBaseTheme=0x7f070000;
+        /**  Application theme. 
+ All customizations that are NOT specific to a particular API-level can go here. 
+         */
+        public static final int AppTheme=0x7f070001;
+        public static final int AutoCompleteTextViewAppTheme=0x7f07000c;
+        public static final int ButtonAppTheme=0x7f07000d;
+        public static final int DropDownListView_Cookiestyle=0x7f070006;
+        public static final int DropDownNav_Cookiestyle=0x7f070008;
+        public static final int ImageButtonAppTheme=0x7f07000e;
+        public static final int PopupMenu_Cookiestyle=0x7f070005;
+        public static final int ProgressBar_Cookiestyle=0x7f070009;
+        public static final int ProgressBarAppTheme=0x7f070012;
+        public static final int RatingBarAppTheme=0x7f070014;
+        public static final int RatingBarBigAppTheme=0x7f070015;
+        public static final int RatingBarSmallAppTheme=0x7f070016;
+        public static final int SeekBarAppTheme=0x7f070013;
+        public static final int SpinnerAppTheme=0x7f07000f;
+        public static final int TabAppTheme=0x7f070010;
+        public static final int TabTextAppTheme=0x7f070011;
+        public static final int Theme_Cookiestyle=0x7f070002;
         /**  this style is only referenced in a Light.DarkActionBar based theme 
  this style is only referenced in a Light.DarkActionBar based theme 
  this style is only referenced in a Light.DarkActionBar based theme 
          */
-        public static final int Theme_Cookiestyle_Widget=0x7f070009;
-        public static final int ToggleAppTheme=0x7f070015;
-        public static final int _AppTheme=0x7f070017;
+        public static final int Theme_Cookiestyle_Widget=0x7f07000b;
+        public static final int ToggleAppTheme=0x7f070017;
+        public static final int _AppTheme=0x7f070018;
     }
 }

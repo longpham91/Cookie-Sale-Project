@@ -209,7 +209,6 @@ var SampleApp = function() {
                 var stringQuery = "INSERT INTO cookie (type, price) VALUES (" + data.value + ")";
                 connection.query(stringQuery, function(err, rows){
                     if(err)	{
-                        throw err;
                         socket.emit('cookie-result', {value: err});
                     } else {
                         socket.emit('cookie-result', {value: 'Success'});
@@ -222,7 +221,6 @@ var SampleApp = function() {
                 var stringQuery = "SELECT * FROM scout where scout_id = '" + data.value + "'";
                 connection.query(stringQuery, function(err, rows){
                     if(err)	{
-                        throw err;
                         socket.emit('scoutload-result', {value: err});
                     } else {
                         socket.emit('scoutload-result', {value: rows[0]});
@@ -233,7 +231,6 @@ var SampleApp = function() {
             socket.on('scoutdelete', function(data) {
                 connection.query("DELETE FROM scout WHERE scout_id = " + data.value, function(err,rows) {
                     if (err){
-                        throw err;
                         socket.emit('scoutdelete-result', { value: err });
                     } else {
                         socket.emit('scoutdelete-result', { value: 'Success' });
@@ -246,7 +243,6 @@ var SampleApp = function() {
                     var stringQuery = "INSERT INTO scout (scout_name, password, scout_address, email, phone, age) VALUES (" + data.value2 + ")";
                     connection.query(stringQuery, function(err, rows){
                         if(err)	{
-                            //throw err;
                             socket.emit('scout-result', {value: err});
                         } else {
                             socket.emit('scout-result', {value: 'Success'});
@@ -257,7 +253,6 @@ var SampleApp = function() {
                     var stringQuery = "UPDATE scout SET scout_name = '" + value.scout_name + "', password = '" + value.password + "', scout_address = '" + value.scout_address + "', email = " + value.email + ", phone = " + value.phone + ", age = '" + value.age + "' WHERE scout_id = '" + value.scout_id + "'";
                     connection.query(stringQuery, function(err, rows){
                         if(err)	{
-                            //throw err;
                             socket.emit('scout-result', {value: err});
                         } else {
                             socket.emit('scout-result', {value: 'Success'});
@@ -272,7 +267,6 @@ var SampleApp = function() {
                 var stringQuery = "SELECT cu.*, sc.scout_name, co.type, co.amount FROM c_order ord JOIN customer cu ON cu.cust_id = ord.cust_id JOIN scout sc ON sc.scout_id = ord.scout_id JOIN cookie_type co ON co.order_id = ord.order_id WHERE ord.order_id = '" + data.value + "'";
                 connection.query(stringQuery, function(err, rows){
                     if(err)	{
-                        throw err;
                         socket.emit('orderload-result', {value: err});
                     } else {
                         socket.emit('orderload-result', {value: rows});
@@ -283,12 +277,10 @@ var SampleApp = function() {
             socket.on('orderdelete', function(data) {
                 connection.query("DELETE FROM c_order WHERE order_id = " + data.value, function(err, rows){
                     if(err)	{
-                        throw err;
                         socket.emit('orderdelete-result', {value: err});
                     } else {
                         connection.query("DELETE FROM cookie_type WHERE order_id = " + data.value, function(err, rows){
                             if (err) {
-                                throw err;
                                 socket.emit('orderdelete-result', {value: err});
                             } else {
                                 socket.emit('orderdelete-result', { value: 'Success'});
@@ -308,18 +300,15 @@ var SampleApp = function() {
                 }
                 connection.query(stringQuery, function(err, rows){
                     if(err)	{
-                        throw err;
                         socket.emit('order-result', {value: err});
                     } else {
                         connection.query("SELECT cust_id FROM customer WHERE cust_name = '" + data.value2 + "'", function(err, rows) {
                              if (err) {
-                                throw err;
                                 socket.emit('order-result', {value: err});
                              } else {
                                 var cust_id = rows[0].cust_id;
                                 connection.query("SELECT scout_id FROM scout WHERE scout_name = '" + data.value3 + "'", function(err, rows) {
                                     if (err) {
-                                        throw err;
                                         socket.emit('order-result', {value: err});
                                     } else {
                                         var scout_id = rows[0].scout_id;
@@ -332,39 +321,33 @@ var SampleApp = function() {
                                         }
                                         connection.query(stringQuery2, function(err, rows) {
                                             if (err) {
-                                                throw err;
                                                 socket.emit('order-result', {value: err});
                                             } else {
                                                 connection.query("SELECT order_id FROM c_order WHERE cust_id = " + cust_id + " AND scout_id = " + scout_id, function (err, rows) {
                                                     if (err) {
-                                                        throw err;
                                                         socket.emit('order-result', {
                                                             value: err
                                                         });
                                                     } else {
                                                         
                                                         var order_id = rows[0].order_id;
-//                                                        connection.query("DELETE FROM cookie_type WHERE order_id = " + order_id, function(err, rows) {
-//                                                            if (err) {
-//                                                                throw err;
-//                                                                socket.emit('order-result', {value: err});
-//                                                            } else {
-                                                                for (var i = 0; i < data.value5.length; i++) {
-                                                                    var dataItem = data.value5[i];
-                                                                         
-                                                                    connection.query("INSERT INTO cookie_type (order_id, type, amount) VALUES (" + order_id + ",'" + dataItem[0] + "'," + dataItem[1] + ")", function (err, rows) {
+                                                        connection.query("DELETE FROM cookie_type WHERE order_id = " + order_id, function(err) {
+                                                            if (err) {
+                                                                socket.emit('order-result', {
+                                                                    value: err
+                                                                });
+                                                            }
+                                                        });
+                                                                 
+                                                        for (var i = 0; i < data.value5.length; i++) {
+                                                            var dataItem = data.value5[i];
+                                                         
+                                                            connection.query("INSERT INTO cookie_type (order_id, type, amount) VALUES (" + order_id + ",'" + dataItem[0] + "'," + dataItem[1] + ")", function (err, rows) {
+                                                                if (err) {
+                                                                    connection.query("UPDATE cookie_type SET amount = '" + dataItem[1] + "' WHERE order_id = '" + order_id + "' AND type = '" + dataItem[0] + "'", function(err, rows) {
                                                                         if (err) {
-                                                                            connection.query("UPDATE cookie_type SET amount = '" + dataItem[1] + "' WHERE order_id = '" + order_id + "' AND type = '" + dataItem[0] + "'", function(err, rows) {
-                                                                                if (err) {
-                                                                                    throw err;
-                                                                                    socket.emit('order-result', {
-                                                                                        value: err
-                                                                                    });
-                                                                                } else {
-                                                                                    socket.emit('order-result', {
-                                                                                        value: "Success"
-                                                                                    });
-                                                                                }
+                                                                            socket.emit('order-result', {
+                                                                                value: err
                                                                             });
                                                                         } else {
                                                                             socket.emit('order-result', {
@@ -372,9 +355,13 @@ var SampleApp = function() {
                                                                             });
                                                                         }
                                                                     });
+                                                                } else {
+                                                                    socket.emit('order-result', {
+                                                                        value: "Success"
+                                                                    });
                                                                 }
-//                                                            }
-//                                                        });
+                                                            });
+                                                        }
                                                     }
                                                 });
                                              }
