@@ -9,7 +9,6 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -30,7 +29,6 @@ public class Main extends ListActivity
    public static final String ROW_ID = "row_id"; // Intent extra key
    private ListView contactListView; // the ListActivity's ListView
    private CursorAdapter contactAdapter; 
-   private CursorAdapter contactAdapter2; // adapter for ListView
    public static int addEdit;
    
    // called when the activity is first created
@@ -46,10 +44,11 @@ public class Main extends ListActivity
       
 
       // map each contact's name to a TextView in the ListView layout
-      String[] from = new String[] {"cusname"};
-      String[] from2 = new String[] {"datetime"};
+      String[] from = new String[] {"cusnamedate"};
+      
+     
       int[] to = new int[] { R.id.cookieTextView };
-      //int[] to2 = new int[] { R.id.cookieTextView2 };
+    
       
      
       contactAdapter = new SimpleCursorAdapter(
@@ -94,7 +93,7 @@ public class Main extends ListActivity
       protected Cursor doInBackground(Object... params)
       {
          databaseConnector.open();
-
+         
          // get a cursor containing call contacts
          return databaseConnector.getAllContacts(); 
       } // end method doInBackground
@@ -148,7 +147,7 @@ public class Main extends ListActivity
     if (item.getItemId() == R.id.action_sync)
     {
       if(isConnected(getBaseContext())== true){
-    addEdit = 1;
+    //addEdit = 1;
       Intent Login = 
          new Intent(Main.this, Login.class);
       startActivity(Login);
@@ -157,8 +156,8 @@ public class Main extends ListActivity
       {
        AlertDialog.Builder builder=new AlertDialog.Builder(Main.this);
           builder.setTitle("WIFI"); 
-          builder.setMessage("You are not currently connected to wifi, motherfucker.");
-          builder.setPositiveButton("ok m7...", null); 
+          builder.setMessage("You are not currently connected to wifi, connect and try again.");
+          builder.setPositiveButton("Ok, thanks based developer!", null); 
           builder.show(); // display the Dialog
       }
     }
@@ -169,8 +168,9 @@ public class Main extends ListActivity
         DatabaseConnector databaseConnector = 
            new DatabaseConnector(Main.this);
        
-        databaseConnector.delete();
         
+        databaseConnector.delete();
+        finish();
         Intent Restart = 
                 new Intent(Main.this, Main.class);
              startActivity(Restart);

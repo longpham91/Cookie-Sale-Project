@@ -1,9 +1,9 @@
 package com.deitel.girlscoutcookies;
 
+import java.util.Date;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import com.deitel.girlscoutcookies.R;
 import com.deitel.girlscoutcookies.DatabaseConnector;
@@ -12,11 +12,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.database.Cursor;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -34,7 +32,6 @@ public class AddEdit extends Activity {
 	private EditText tagEditText;
 	private EditText mintEditText;
 	private EditText cusEditText;
-	private TextView datetimeTextView;
 	
 	public int resuming;
 
@@ -47,6 +44,12 @@ public class AddEdit extends Activity {
 	public int tag;
 	public int mint;
 	public int tre;
+	public String cusnamedate;
+	public String reportDate;
+	public String updateDate;
+	public Format df;
+	public Date today;
+	public String reportedDate;
 	
 	
 	private int pickedup;
@@ -56,25 +59,21 @@ public class AddEdit extends Activity {
 	public int oldCookieVal;
 	public static int totalCookies;
 	public int newCookieVal;
-	public String reportDate;
-	public Format df;
-	public Date today;
-	
-	
+	public TextView datetime;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inputcookie); 
         totalCookies =0;
-        datetimeTextView=(TextView)findViewById(R.id.datetime);
         Button deleteButton=(Button)findViewById(R.id.deletebutton);
+     
         deleteButton.setOnClickListener(deletecookieClicked);
-        
+        datetime=(TextView)findViewById(R.id.datetime);
         if (Main.addEdit == 1)
         {
         	deleteButton.setVisibility(View.GONE);
-        	datetimeTextView.setVisibility(View.GONE);
+        	datetime.setVisibility(View.GONE);
         
         }
         
@@ -88,7 +87,6 @@ public class AddEdit extends Activity {
         paybox=(CheckBox)findViewById(R.id.checkBox1);
         pickbox=(CheckBox)findViewById(R.id.checkBox2);
         totalTextView=(TextView)findViewById(R.id.totalp);
-
         
         savaEditText.addTextChangedListener(new CustomTextWatcher(savaEditText));
         treEditText.addTextChangedListener(new CustomTextWatcher(treEditText));
@@ -103,7 +101,7 @@ public class AddEdit extends Activity {
         
         if(extras!=null)
         {
-        	System.out.println(extras.toString());
+        	//System.out.println(extras.toString());
         	rowID=extras.getLong("row_id");
         	
         	
@@ -123,7 +121,7 @@ public class AddEdit extends Activity {
     		
     		
     		{
-
+    			
     			if(cusEditText.getText().length()!=0)
     			{
     				AsyncTask<Object,Object,Object> saveCookieTask=
@@ -182,15 +180,14 @@ public class AddEdit extends Activity {
     	     
     			resuming = 0;
     	      
-    	      // create new LoadMovieTask and execute it 
+    	      
     	      new LoadCookieTask().execute(rowID);
     	     
     	    						  
     	       
     	      
     	       
-    	       System.out.println("onResume");
-           	System.out.println("total cookies =" + totalCookies);
+    	   
 
     	       
     	      
@@ -220,8 +217,7 @@ public class AddEdit extends Activity {
     	         super.onPostExecute(result);
     	   
     	         result.moveToFirst(); // move to the first item 
-    	         
-    	         
+    	   
     	         // get the column index for each data item
     	         int savaIndex = result.getColumnIndex("sava");
     	         int tresIndex = result.getColumnIndex("tres");
@@ -232,7 +228,9 @@ public class AddEdit extends Activity {
     	         int cusnameIndex = result.getColumnIndex("cusname");
     	         int paidIndex = result.getColumnIndex("paid");
     	         int pickedupIndex = result.getColumnIndex("pickedup");
-    	         int datetimeIndex=result.getColumnIndex("datetime");
+    	         int reportDateIndex = result.getColumnIndex("reportDate");
+    	         int updateDateIndex = result.getColumnIndex("updateDate");
+    	   
     	         // fill TextViews with the retrieved data
     	      
     	         savaEditText.setText(result.getString(savaIndex));
@@ -242,9 +240,11 @@ public class AddEdit extends Activity {
     	         tagEditText.setText(result.getString(tagIndex));
     	         mintEditText.setText(result.getString(mintIndex));
     	         cusEditText.setText(result.getString(cusnameIndex));
-    	         datetimeTextView.setText(result.getString(datetimeIndex));
+    	         reportedDate = result.getString(reportDateIndex);
+    	         String temp = result.getString(updateDateIndex);
+    	         datetime.setText("Last updated " + temp.substring(5,8)+temp.substring(8,10)+"/"+temp.substring(0,4)+"." );
     	         
-    	         System.out.println("TVs set");    	         
+    	          	         
     	         if((result.getInt(paidIndex) == 1))
     	        		 {
     	        	 paybox.setChecked(true);
@@ -319,11 +319,28 @@ public class AddEdit extends Activity {
     {
         // get DatabaseConnector to interact with the SQLite database
         DatabaseConnector databaseConnector = new DatabaseConnector(this);
-        df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-    	today = Calendar.getInstance().getTime();        
-    	reportDate = df.format(today);
+        df = new SimpleDateFormat("yyyy/MM/dd");
+    	today =  Calendar.getInstance().getTime();
     	
-        if (getIntent().getExtras() == null)
+    	if(Main.addEdit == 1)
+    	{
+    		reportDate = df.format(today);
+    		System.out.println("reportDate");
+    		updateDate = reportDate;
+    	}
+    	
+    	else {
+    		updateDate = df.format(today);
+    		reportDate = reportedDate;
+    	}
+    	
+    	
+    	
+    	
+    	
+    	cusnamedate =  cusEditText.getText().toString() + " (" + reportDate +")";
+        
+	        if (getIntent().getExtras() == null)
         {
            
         	
@@ -346,7 +363,7 @@ public class AddEdit extends Activity {
               samaEditText.getText().toString(),
               tagEditText.getText().toString(),
            	  mintEditText.getText().toString(),
-           	  cusEditText.getText().toString(),paid,pickedup,reportDate);
+           	  cusEditText.getText().toString(),paid,pickedup, cusnamedate, updateDate, reportDate);
               
            
            
@@ -376,7 +393,7 @@ public class AddEdit extends Activity {
                    mintEditText.getText().toString(),
                    cusEditText.getText().toString(),
                    paid,
-                   pickedup,reportDate);
+                   pickedup, cusnamedate, updateDate, reportDate);
         
            
         } // end else
@@ -393,12 +410,10 @@ public class AddEdit extends Activity {
         
 
         public CustomTextWatcher(EditText e) { 
-            //mEditText = e;
         }
 
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        	//Record original values
-        	System.out.println(Integer.toString(resuming));
+        	//System.out.println(Integer.toString(resuming));
         	if (resuming >= 11 || Main.addEdit == 1)
         			{
         	if (s.toString().length()== 0){
@@ -417,11 +432,9 @@ public class AddEdit extends Activity {
         		
         	}
         	
-        	System.out.println("before, " + s.toString());
         	
         			}
         	resuming +=1;
-        	System.out.println("total cookies =" + totalCookies);
         	
         }
 
@@ -433,7 +446,6 @@ public class AddEdit extends Activity {
 
 		@Override
 		public void afterTextChanged(Editable s) {
-			System.out.println(Integer.toString(resuming));
 			if (resuming >= 12 || Main.addEdit == 1)
 			{
 				
@@ -449,10 +461,8 @@ public class AddEdit extends Activity {
 				totalTextView.setText("$"+ Integer.toString(totalCookies*4));
 			}
 			
-			System.out.println("after, " + s.toString());
 			}
 			resuming +=1;
-        	System.out.println("total cookies =" + totalCookies);
 
 		}
 

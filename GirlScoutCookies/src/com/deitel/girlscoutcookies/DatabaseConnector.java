@@ -13,7 +13,7 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 public class DatabaseConnector 
 {
    // database name
-   private static final String DATABASE_NAME = "cookies";
+   private final String DATABASE_NAME = "COOKIES";
    private SQLiteDatabase database; // database object
    private DatabaseOpenHelper databaseOpenHelper; // database helper
 
@@ -41,7 +41,7 @@ public class DatabaseConnector
 
    // inserts a new transaction in the database
    public void insertCookie(String sava, String tres, String dosi, 
-      String sama, String tag, String mint, String cusname, int paid, int pickedup, String datetime) 
+      String sama, String tag, String mint, String cusname, int paid, int pickedup, String cusnamedate, String updateDate, String reportDate) 
    {
       ContentValues newCookie= new ContentValues();
       newCookie.put("sava", sava);
@@ -53,17 +53,19 @@ public class DatabaseConnector
       newCookie.put("cusname", cusname);
       newCookie.put("paid", paid);
       newCookie.put("pickedup", pickedup);
-      newCookie.put("datetime", datetime);
+      newCookie.put("cusnamedate", cusnamedate);
+      newCookie.put("updateDate", updateDate);
+      newCookie.put("reportDate", reportDate);
       
 
       open(); // open the database
-      database.insert("cookies", null, newCookie);
+      database.insert("COOKIES", null, newCookie);
       close(); // close the database
    } // end method insertContact
 
    // inserts a new contact in the database
    public void updateCookie(long id, String sava, String tres, String dosi, 
-		      String sama, String tag, String mint, String cusname, int paid, int pickedup, String datetime) 
+		      String sama, String tag, String mint, String cusname, int paid, int pickedup, String cusnamedate, String updateDate, String reportDate) 
    {
       ContentValues editCookie = new ContentValues();
       editCookie.put("sava", sava);
@@ -75,18 +77,22 @@ public class DatabaseConnector
       editCookie.put("cusname", cusname);
       editCookie.put("paid", paid);
       editCookie.put("pickedup", pickedup);
-      editCookie.put("datetime",datetime);
+      editCookie.put("cusnamedate", cusnamedate);
+      editCookie.put("updateDate", updateDate);
+      editCookie.put("reportDate", reportDate);
+      
 
       open(); // open the database
-      database.update("cookies", editCookie, "_id=" + id, null);
+      database.update("COOKIES", editCookie, "_id=" + id, null);
       close(); // close the database
    } // end method updateContact
 
    // return a Cursor with all contact information in the database
    public Cursor getAllContacts() 
    {
-      return database.query("cookies", new String[] {"_id", "cusname"}, 
-         null, null, null, null, "cusname");
+	  
+      return database.query("COOKIES", new String[] {"_id", "cusnamedate"}, 
+         null, null, null, null, "cusnamedate");
    } 
 
    // get a Cursor containing all information about the contact specified
@@ -94,24 +100,45 @@ public class DatabaseConnector
    public Cursor getOneContact(long id) 
    {
       return database.query(
-         "cookies", null, "_id=" + id, null, null, null, null);
+         "COOKIES", null, "_id=" + id, null, null, null, null);
    } // end method getOnContact
 
    // delete the contact specified by the given String name
    public void deleteContact(long id) 
    {
       open(); // open the database
-      database.delete("cookies", "_id=" + id, null);
+      database.delete("COOKIES", "_id=" + id, null);
       close(); // close the database
    } // end method deleteContact
+   
+   public void delete() {
+ 	  //int id = 0;
+
+ 	  
+ 	  
+ 	  
+	   	
+	   
+	   open(); 
+    
+     String query = "DELETE FROM COOKIES;";
+ 	 	
+ 	  	  database.execSQL(query);
+ 	  	  
+ 	  	 
+ 	   close();
+ 	 	
+ 	 }
+   
+   
    
    private class DatabaseOpenHelper extends SQLiteOpenHelper 
    {
       // public constructor
-      public DatabaseOpenHelper(Context context, String cusname,
+      public DatabaseOpenHelper(Context context, String cusnamedate,
          CursorFactory factory, int version) 
       {
-         super(context, cusname, factory, version);
+         super(context, cusnamedate, factory, version);
       } // end DatabaseOpenHelper constructor
 
       // creates the contacts table when the database is created
@@ -122,13 +149,17 @@ public class DatabaseConnector
          String createQuery = "CREATE TABLE COOKIES" +
             "(_id integer primary key autoincrement," +
             "cusname TEXT, sava TEXT, tres TEXT, dosi TEXT, mint TEXT, " +
-            "sama TEXT, tag TEXT, paid TEXT, pickedup TEXT, datetime TEXT);";
+            "sama TEXT, tag TEXT, paid TEXT, pickedup TEXT, cusnamedate TEXT, updateDate TEXT, reportDate TEXT);";
          
                   
          db.execSQL(createQuery); // execute the query
-         System.out.print("table created");
+         //System.out.print("table created");
       } // end method onCreate
       
+       
+      
+      
+
       
       
       
@@ -140,19 +171,8 @@ public class DatabaseConnector
       } // end method onUpgrade
    } // end class DatabaseOpenHelper
 
-public void delete() {
-	deleteDB(database);
-	
-	
-}
 
-public void deleteDB(SQLiteDatabase db) 
-{
-   // query to create a new table named contacts
-   String deleteQuery = "DROP TABLE COOKIES";
-            
-   db.execSQL(deleteQuery); // execute the query
-}
+
 
 
 	
