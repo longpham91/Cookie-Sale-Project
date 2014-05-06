@@ -16,6 +16,11 @@ public final class R {
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
 
+         Example customization of dimensions originally defined in res/values/dimens.xml
+         (such as screen margins) for screens with more than 820dp of available width. This
+         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
+    
+
          Customize dimensions originally defined in res/values/dimens.xml (such as
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
@@ -186,42 +191,47 @@ public final class R {
     public static final class id {
         public static final int LinearLayout1=0x7f090001;
         public static final int TextView01=0x7f09000b;
-        public static final int TextView02=0x7f090013;
-        public static final int TextView04=0x7f090011;
-        public static final int TextView06=0x7f09000f;
-        public static final int TextView08=0x7f09000d;
-        public static final int action_settings=0x7f09001c;
-        public static final int action_sync=0x7f09001d;
-        public static final int checkBox1=0x7f090017;
-        public static final int checkBox2=0x7f090018;
-        public static final int confirmbutton=0x7f090007;
-        public static final int contactTextView=0x7f090008;
-        public static final int cookieTextView=0x7f09001b;
-        public static final int cusname=0x7f09000a;
-        public static final int datetime=0x7f090019;
-        public static final int delete=0x7f09001e;
-        public static final int deletebutton=0x7f09001a;
-        public static final int dosiquant=0x7f090012;
+        public static final int TextView02=0x7f090009;
+        public static final int TextView04=0x7f090015;
+        public static final int TextView06=0x7f090013;
+        public static final int TextView08=0x7f090011;
+        public static final int action_settings=0x7f09001f;
+        public static final int action_sync=0x7f090020;
+        public static final int cancel=0x7f090007;
+        public static final int changpass=0x7f090006;
+        public static final int changpassbutton=0x7f090008;
+        public static final int checkBox1=0x7f09001a;
+        public static final int checkBox2=0x7f09001b;
+        public static final int contactTextView=0x7f09000d;
+        public static final int cookieTextView=0x7f09001e;
+        public static final int cusname=0x7f09000f;
+        public static final int datetime=0x7f09001c;
+        public static final int delete=0x7f090021;
+        public static final int deletebutton=0x7f09001d;
+        public static final int dosiquant=0x7f090016;
         public static final int imageView1=0x7f090000;
-        public static final int mintquant=0x7f090015;
-        public static final int passwordET=0x7f090005;
-        public static final int samquant=0x7f09000c;
-        public static final int savaquant=0x7f09000e;
-        public static final int submitcredentialsbutton=0x7f090006;
-        public static final int tagquant=0x7f090014;
+        public static final int mintquant=0x7f090018;
+        public static final int newpass=0x7f09000c;
+        public static final int newpassconfirm=0x7f090005;
+        public static final int oldpassword=0x7f09000a;
+        public static final int samquant=0x7f090010;
+        public static final int savaquant=0x7f090012;
+        public static final int tagquant=0x7f090017;
         public static final int textView1=0x7f090002;
         public static final int textView2=0x7f090004;
-        public static final int textView3=0x7f090009;
-        public static final int totalp=0x7f090016;
-        public static final int trequant=0x7f090010;
-        public static final int usernameET=0x7f090003;
+        public static final int textView3=0x7f09000e;
+        public static final int totalp=0x7f090019;
+        public static final int trequant=0x7f090014;
+        public static final int usename=0x7f090003;
     }
     public static final class layout {
         public static final int activity_gscout=0x7f030000;
         public static final int apptheme_tab_indicator_holo=0x7f030001;
-        public static final int cookielookup=0x7f030002;
-        public static final int inputcookie=0x7f030003;
-        public static final int viewtransaction=0x7f030004;
+        public static final int changepassword=0x7f030002;
+        public static final int cookielookup=0x7f030003;
+        public static final int fragment_changepassword=0x7f030004;
+        public static final int inputcookie=0x7f030005;
+        public static final int viewtransaction=0x7f030006;
     }
     public static final class menu {
         public static final int gscout=0x7f080000;
@@ -230,6 +240,8 @@ public final class R {
         public static final int action_settings=0x7f060001;
         public static final int app_name=0x7f060000;
         public static final int cancel=0x7f06000a;
+        public static final int changepass=0x7f060019;
+        public static final int cnewpass=0x7f06001c;
         public static final int confirm=0x7f060003;
         public static final int cookielookup=0x7f06000b;
         public static final int customername=0x7f06000d;
@@ -239,6 +251,8 @@ public final class R {
         public static final int errorTitle=0x7f060017;
         public static final int flavor=0x7f060005;
         public static final int hello_world=0x7f060002;
+        public static final int newpass=0x7f06001b;
+        public static final int oldpass=0x7f06001a;
         public static final int paid=0x7f060015;
         public static final int password=0x7f060007;
         public static final int pickedup=0x7f060014;
@@ -247,6 +261,7 @@ public final class R {
         public static final int savannahsmiles=0x7f06000e;
         public static final int tagalongs=0x7f060012;
         public static final int thinmints=0x7f060013;
+        public static final int title_activity_changepassword=0x7f06001d;
         public static final int totalprice=0x7f060009;
         public static final int trefoils=0x7f060010;
         public static final int unitprice=0x7f060008;

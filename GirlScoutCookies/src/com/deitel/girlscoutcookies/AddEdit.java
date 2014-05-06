@@ -31,13 +31,8 @@ public class AddEdit extends Activity {
 	private EditText samaEditText;
 	private EditText tagEditText;
 	private EditText mintEditText;
-	private EditText cusEditText;
-	
-	public int resuming;
-
-	
-	
-	
+	private EditText cusEditText;	
+	public int resuming;	
 	public int sama;
 	public int sava;
 	public int dosi;
@@ -49,9 +44,7 @@ public class AddEdit extends Activity {
 	public String updateDate;
 	public Format df;
 	public Date today;
-	public String reportedDate;
-	
-	
+	public String reportedDate;	
 	private int pickedup;
 	private int paid;
 	private CheckBox paybox, pickbox;
@@ -102,26 +95,15 @@ public class AddEdit extends Activity {
         if(extras!=null)
         {
         	//System.out.println(extras.toString());
-        	rowID=extras.getLong("row_id");
-        	
-        	
-        	
-        	
-        	
+        	rowID=extras.getLong("row_id");      	
         }
-
-        Button confirmButton=(Button)findViewById(R.id.confirmbutton);
-        confirmButton.setOnClickListener(confirmcookieClicked);
-        
-        
+        Button confirmButton=(Button)findViewById(R.id.cancel);
+        confirmButton.setOnClickListener(confirmcookieClicked);        
     }
     	OnClickListener confirmcookieClicked = new OnClickListener()
     	{
-    		public void onClick(View v)
-    		
-    		
+    		public void onClick(View v)  		
     		{
-    			
     			if(cusEditText.getText().length()!=0)
     			{
     				AsyncTask<Object,Object,Object> saveCookieTask=
@@ -134,9 +116,7 @@ public class AddEdit extends Activity {
 						}
 						protected void onPostExecute(Object result)
 						{
-							finish();
-							
-							
+							finish();							
 						}
     			};
     			saveCookieTask.execute((Object[])null);
@@ -149,13 +129,9 @@ public class AddEdit extends Activity {
     	            builder.setPositiveButton(R.string.errorButton, null); 
     	            builder.show(); // display the Dialog
     			}
-    		}
-
-	
-			
+    		}			
     	};
-    	
-    	
+   	
     	OnClickListener deletecookieClicked = new OnClickListener()
     	{
     		public void onClick(View v)
@@ -166,10 +142,7 @@ public class AddEdit extends Activity {
     			deleteCookie();
     			finish();
     			}
-    		}
-
-	
-			
+    		}		
     	};
     	
     	@Override
@@ -177,21 +150,8 @@ public class AddEdit extends Activity {
     	   {
     		 super.onResume();
     		if(Main.addEdit == 2){
-    	     
     			resuming = 0;
-    	      
-    	      
     	      new LoadCookieTask().execute(rowID);
-    	     
-    	    						  
-    	       
-    	      
-    	       
-    	   
-
-    	       
-    	      
-    	      
     		}
     	   }
     	
@@ -199,13 +159,11 @@ public class AddEdit extends Activity {
     	   {
     	     DatabaseConnector databaseConnector = 
     	         new DatabaseConnector(AddEdit.this);
-
     	      // perform the database access
     	      @Override
     	      protected Cursor doInBackground(Long... params)
     	      {
-    	         databaseConnector.open();
-    	         
+    	         databaseConnector.open();        
     	         // get a cursor containing all data on given entry
     	         return databaseConnector.getOneContact(params[0]);
     	      } // end method doInBackground
@@ -214,8 +172,7 @@ public class AddEdit extends Activity {
     	      @Override
     	      protected void onPostExecute(Cursor result)
     	      {
-    	         super.onPostExecute(result);
-    	   
+    	         super.onPostExecute(result);   
     	         result.moveToFirst(); // move to the first item 
     	   
     	         // get the column index for each data item
@@ -302,14 +259,6 @@ public class AddEdit extends Activity {
       	    	       }
       	       totalCookies = mint + sava+ sama + tre + tag + dosi;
       	       totalTextView.setText("$"+ Integer.toString(totalCookies*4));
-    	        
-    	         
-    	        // }
-    	         
-    	         
-    	         
-    	      
-    	   
     	         result.close(); // close the result cursor
     	         databaseConnector.close(); // close database connection
     	      } // end method onPostExecute
@@ -333,11 +282,7 @@ public class AddEdit extends Activity {
     		updateDate = df.format(today);
     		reportDate = reportedDate;
     	}
-    	
-    	
-    	
-    	
-    	
+    		
     	cusnamedate =  cusEditText.getText().toString() + " (" + reportDate +")";
         
 	        if (getIntent().getExtras() == null)
@@ -363,11 +308,7 @@ public class AddEdit extends Activity {
               samaEditText.getText().toString(),
               tagEditText.getText().toString(),
            	  mintEditText.getText().toString(),
-           	  cusEditText.getText().toString(),paid,pickedup, cusnamedate, updateDate, reportDate);
-              
-           
-           
-           
+           	  cusEditText.getText().toString(),paid,pickedup, cusnamedate, updateDate, reportDate);        
            
         } // end if
         else

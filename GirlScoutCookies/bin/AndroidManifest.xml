@@ -3,8 +3,9 @@
     package="com.deitel.girlscoutcookies"
     android:versionCode="1"
     android:versionName="1.0" >
-    
-    <permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-sdk
@@ -15,36 +16,29 @@
         android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-       
-        
-        >
-        
-        <activity android:name="Login"
-             android:screenOrientation="portrait">
-           
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.deitel.girlscoutcookies.Login"
+            android:screenOrientation="portrait" >
         </activity>
-        
         <activity
             android:name="com.deitel.girlscoutcookies.AddEdit"
-            android:label="@string/app_name" 
+            android:label="@string/app_name"
             android:screenOrientation="portrait" >
-            
         </activity>
-        
-        <activity android:name="com.deitel.girlscoutcookies.Main"
-             android:screenOrientation="portrait">
-             
-             <intent-filter>
+        <activity
+            android:name="com.deitel.girlscoutcookies.Main"
+            android:screenOrientation="portrait" >
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            
-            </activity>
-        
-        
-        
+        </activity>
+        <activity
+            android:name="com.deitel.girlscoutcookies.ChangepasswordAct"
+            android:label="@string/title_activity_changepassword" >
+        </activity>
     </application>
 
 </manifest>

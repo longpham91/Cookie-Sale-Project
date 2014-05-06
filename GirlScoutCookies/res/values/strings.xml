@@ -26,4 +26,10 @@
     <string name="errorButton">OK</string>
     <string name="errorTitle">Customer name is required</string>
     <string name="errorMessage">You must enter a customer name</string>
+    <string name="changepass">Change Password</string>
+    <string name="oldpass">Old Password</string>
+    <string name="newpass">New Password</string>
+    <string name="cnewpass">Confirm New Password</string>
+    <string name="title_activity_changepassword">ChangepasswordAct</string>
+
 </resources>
